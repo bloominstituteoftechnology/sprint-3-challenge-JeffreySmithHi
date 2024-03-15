@@ -232,15 +232,20 @@
   }
 
   feed(antName) {
-    const ant = this.ants.find((a) => a.name === antName);
-    if (ant) {
-      ant.health += 15;
-      return "Yum!";
+    this.ants = this.ants.map((ant) => {
+        if (ant.name === antName) {
+            return { ...ant, health: ant.health + 15 };
+        }
+        return ant;
+    });
+    const antFound = this.ants.filter((ant) => ant.name === antName).length > 0;
+    if (antFound) {
+        return "Yum!";
     } else {
-      return `${antName} not found!`;
+        return `${antName} not found!`;
+    }
     }
   }
-    }
 
             // 🧠 Constructor takes **any** number of arguments, which are strings: the names of your ants
             // 🧠 Instances of AntFarm have an `ants` property holding an array of ants:
